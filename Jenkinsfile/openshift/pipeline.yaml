@@ -1,0 +1,18 @@
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  name: jenkins-101-pipeline
+spec:
+  source:
+    type: Git
+    git:
+      uri: 'https://github.com/devops-integrated/jenkins-101'
+  strategy:
+    type: JenkinsPipeline
+    jenkinsPipelineStrategy:
+      jenkinsfilePath: Jenkinsfile
+  triggers:
+    - type: GitHub
+    - type: Generic
+    - type: ConfigChange
+    - type: ImageChange
