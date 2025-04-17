@@ -1,0 +1,19 @@
+name: Send Git Push Info to Splunk
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  send-to-splunk:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Send GitHub Push Data to Splunk
+        uses: fjogeleit/http-request-action@v1
+        with:
+          url: 'https://prd-p-xjyxp.splunkcloud.com/en-US/manager/launcher/http-eventcollector:8088/services/collector/event'
+          method: 'POST'
+          customHeaders: '{"Authorization": "Splunk 0075e3f2-3a74-4f0e-a2c3-46019c2b9a26"}'
+          data: '{"event": "Git push happened!", "repository": "${{ github.repository }}", "pusher": "${{ github.actor }}"}'
