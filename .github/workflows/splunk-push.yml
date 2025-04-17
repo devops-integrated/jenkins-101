@@ -9,7 +9,8 @@ jobs:
     steps:
       - name: Send event to Splunk
         run: |
-          curl -k -L https://prd-p-xjyxp.splunkcloud.com/services/collector/event \
+          curl -k -X POST https://prd-p-xjyxp.splunkcloud.com:443/services/collector/event \
             -H "Authorization: Splunk 0075e3f2-3a74-4f0e-a2c3-46019c2b9a26" \
             -H "Content-Type: application/json" \
             -d '{"event": "GitHub push triggered!"}'
+
