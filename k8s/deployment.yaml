@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jenkins-101-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jenkins-101-app
+  template:
+    metadata:
+      labels:
+        app: jenkins-101-app
+    spec:
+      containers:
+      - name: jenkins-101-app
+        image: yourdockerhubusername/jenkins-101-app:latest
+        ports:
+        - containerPort: 5000
+
