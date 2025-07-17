@@ -1,14 +1,20 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: jenkins-101-app
+  name: jenkins-101-helm
   namespace: argocd
 spec:
   project: default
   source:
-    repoURL: https://github.com/yourusername/jenkins-101
+    repoURL: https://github.com/devops-integrated/jenkins-101
     targetRevision: HEAD
-    path: k8s
+    path: jenkins101-chart
+    helm:
+      values: |
+        image:
+          repository: yourdockerhubusername/jenkins-101-app
+          tag: latest
+          pullPolicy: IfNotPresent
   destination:
     server: https://kubernetes.default.svc
     namespace: jenkins-101
